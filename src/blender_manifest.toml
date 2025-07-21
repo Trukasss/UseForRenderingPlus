@@ -6,7 +6,7 @@ name = "Use For Rendering Plus"
 tagline = "Quickly check or uncheck view layer's 'Use For Rendering' prop"
 maintainer = "Lukas Sabaliauskas <lukas_sabaliauskas@hotmail.com>"
 type = "add-on"
-tags = ["Compositing", "Import-Export", "Node", "Pipeline", "Render", "User Interface"]
+tags = ["Compositing"]
 blender_version_min = "4.2.0"
 license = [
   "SPDX:GPL-3.0-or-later",

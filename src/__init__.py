@@ -91,8 +91,10 @@ def draw_operators(self: Operator, context: Context):
 
 
 def draw_menu(self: Operator, context: Context):
-    layout = self.layout
-    layout.menu(UFRP_MT_menu.bl_idname)
+    space = context.space_data
+    if space.type == "NODE_EDITOR" and space.tree_type == "CompositorNodeTree":
+        layout = self.layout
+        layout.menu(UFRP_MT_menu.bl_idname)
 
 
 def register():

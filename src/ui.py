@@ -4,7 +4,8 @@ from bl_ui.space_node import NODE_MT_context_menu
 
 from .op import (
     UFRP_OP_batch, 
-    UFRP_OP_onlyActive,
+    UFRP_OP_OnlyUnmuted,
+    UFRP_OP_OnlySelected,
     UFRP_OP_SwitchViewLayer,
 )
 from . import icons
@@ -14,7 +15,7 @@ class UFRP_MT_menu(bpy.types.Menu):
     bl_label = "View Layers"
     bl_idname = "UFRP_MT_menu"
 
-    def draw(self, context):
+    def draw(self, context: Context):
         layout = self.layout
         op_on = layout.operator(
             UFRP_OP_batch.bl_idname, 
@@ -26,9 +27,14 @@ class UFRP_MT_menu(bpy.types.Menu):
             text="Disable all",
             icon_value = icons.get_addon_id())
         op_off.state = False
-        op_off.state = False
         layout.operator(
-            UFRP_OP_onlyActive.bl_idname,
+            UFRP_OP_OnlyUnmuted.bl_idname,
+            icon_value = icons.get_addon_id())
+        layout.operator(
+            UFRP_OP_SwitchViewLayer.bl_idname,
+            icon_value = icons.get_addon_id())
+        layout.operator(
+            UFRP_OP_OnlySelected.bl_idname,
             icon_value = icons.get_addon_id())
 
 
@@ -58,4 +64,9 @@ def draw_node_menu(self: NODE_MT_context_menu, context: Context):
         and context.active_node):
         layout = self.layout
         layout.separator()
-        layout.operator(UFRP_OP_SwitchViewLayer.bl_idname, icon_value = icons.get_addon_id())
+        layout.operator(
+            UFRP_OP_SwitchViewLayer.bl_idname, 
+            icon_value = icons.get_addon_id())
+        layout.operator(
+            UFRP_OP_OnlySelected.bl_idname, 
+            icon_value = icons.get_addon_id())

@@ -20,15 +20,21 @@ class UFRP_OP_batch(Operator):
     def execute(self, context: Context):
         if self.state == True:
             context.scene.render.use_single_layer = False
+        nb_view_layers = 0
         for scene in bpy.data.scenes:
             scene: Scene
             for vl in scene.view_layers:
                 vl: ViewLayer
                 vl.use = self.state
+                nb_view_layers += 1
         nodes = [node for node in context.scene.node_tree.nodes if node.type == "R_LAYERS"]
         for node in nodes:
             node: CompositorNodeRLayers
             node.mute = not self.state
+        if self.state == True:
+            self.report({"INFO"}, f"Enabled all {nb_view_layers} view layers for rendering")
+        else:
+            self.report({"INFO"}, f"Disabled all {nb_view_layers} view layers from rendering")
         return {"FINISHED"}
 
 
@@ -60,4 +66,5 @@ class UFRP_OP_onlyActive(Operator):
                     vl.use = True
                 else:
                     vl.use = False
+        self.report({"INFO"}, f"Enable only {len(layers_to_use)} active view layers for rendering")
         return {"FINISHED"}

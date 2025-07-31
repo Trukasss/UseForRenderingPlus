@@ -13,6 +13,8 @@ bl_info = {
 
 import bpy
 import importlib
+from . import icons
+importlib.reload(icons)
 from . import op
 importlib.reload(op)
 from . import ui
@@ -20,6 +22,7 @@ importlib.reload(ui)
 
 
 def register():
+    icons.register()
     bpy.utils.register_class(op.UFRP_OP_batch)
     bpy.utils.register_class(op.UFRP_OP_onlyActive)
     bpy.utils.register_class(op.UFRP_OP_SwitchViewLayer)
@@ -37,3 +40,4 @@ def unregister():
     bpy.types.VIEWLAYER_PT_layer.remove(ui.draw_batch_operators)
     bpy.types.NODE_MT_editor_menus.remove(ui.draw_comp_menu)
     bpy.types.NODE_MT_context_menu.remove(ui.draw_node_menu)
+    icons.unregister()

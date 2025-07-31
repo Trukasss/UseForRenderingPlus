@@ -1,7 +1,12 @@
 import bpy
-from bpy.types import Operator, Context
+from bpy.types import Panel, Context
+from bl_ui.space_node import NODE_MT_context_menu
 
-from .op import UFRP_OP_batch, UFRP_OP_onlyActive
+from .op import (
+    UFRP_OP_batch, 
+    UFRP_OP_onlyActive,
+    UFRP_OP_SwitchViewLayer,
+)
 
 
 class UFRP_MT_menu(bpy.types.Menu):
@@ -18,7 +23,7 @@ class UFRP_MT_menu(bpy.types.Menu):
         layout.operator(UFRP_OP_onlyActive.bl_idname)
 
 
-def draw_operators(self: Operator, context: Context):
+def draw_batch_operators(self: Panel, context: Context):
     layout = self.layout
     op_on = layout.operator(UFRP_OP_batch.bl_idname, text="Enable all")
     op_on.state = True
@@ -26,8 +31,16 @@ def draw_operators(self: Operator, context: Context):
     op_off.state = False
 
 
-def draw_menu(self: Operator, context: Context):
+def draw_comp_menu(self: Panel, context: Context):
     space = context.space_data
     if space.type == "NODE_EDITOR" and space.tree_type == "CompositorNodeTree":
         layout = self.layout
         layout.menu(UFRP_MT_menu.bl_idname)
+
+
+def draw_node_menu(self: NODE_MT_context_menu, context: Context):
+    if (context.space_data.tree_type == "CompositorNodeTree"
+        and context.active_node):
+        layout = self.layout
+        layout.separator()
+        layout.operator(UFRP_OP_SwitchViewLayer.bl_idname)

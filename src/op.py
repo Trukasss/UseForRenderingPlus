@@ -3,8 +3,15 @@ from bpy.types import Operator, Context, Scene, ViewLayer, CompositorNodeRLayers
 from bpy.props import BoolProperty
 
 
-# def get_render_nodes_layers(active_only=False):
-
+def get_render_nodes_scene_layer(node: CompositorNodeRLayers):
+    if node.type != "R_LAYERS":
+        raise ValueError("Active node must be of Render Layer type")
+    if node.scene is None:
+        return (None, None)
+    layer = node.scene.view_layers.get(node.layer, None)
+    if layer is None:
+        return (node.scene, None)
+    return (node.scene, layer)
 
 
 class UFRP_OP_batch(Operator):
@@ -46,16 +53,12 @@ class UFRP_OP_onlyActive(Operator):
     
     def execute(self, context: Context):
         # get layers to use
-        scenes_layers = [(node.scene, node.layer) for node in context.scene.node_tree.nodes if node.type == "R_LAYERS" and not node.mute]
+        render_nodes = [(node.scene, node.layer) for node in context.scene.node_tree.nodes if node.type == "R_LAYERS" and not node.mute]
         # scenes_layers = [(scene, layer_name) (scene, layer_name)]
         layers_to_use = []
-        for scene_layer in scenes_layers:
-            scene = scene_layer[0]
-            layer_name = scene_layer[1]
-            if scene is None:
-                continue
-            layer = scene.view_layers.get(layer_name, None)
-            if layer is None:
+        for node in render_nodes:
+            scene, layer = get_render_nodes_scene_layer(node)
+            if not layer:
                 continue
             layers_to_use.append(layer)
         # only activate layers to use
@@ -67,4 +70,32 @@ class UFRP_OP_onlyActive(Operator):
                 else:
                     vl.use = False
         self.report({"INFO"}, f"Enable only {len(layers_to_use)} active view layers for rendering")
+        return {"FINISHED"}
+
+
+class UFRP_OP_SwitchViewLayer(Operator):
+    """Switch to active render layer node's view layer"""
+    bl_idname = "ufrp.switch_view_layer"
+    bl_label = "Switch to View Layer"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: Context):
+        cls.poll_message_set("Must select a Render Layer Node")
+        return (
+            context.active_node
+            and context.active_node.type == "R_LAYERS")
+    
+    def execute(self, context: Context):
+        node = context.active_node
+        if node.type != "R_LAYERS":
+            self.report({"ERROR"}, "Active node must be of Render Layer type")
+            return {"CANCELLED"}
+        scene, layer = get_render_nodes_scene_layer(node)
+        if not scene or not layer:
+            self.report({"ERROR"}, f"Could not find scene '{scene}' and view layer '{layer}'")
+            return {"CANCELLED"}
+        context.window.scene = scene
+        context.window.view_layer = layer
+        self.report({"INFO"}, f"Switched to '{layer.name}' view layer")
         return {"FINISHED"}

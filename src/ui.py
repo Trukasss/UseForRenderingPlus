@@ -31,11 +31,11 @@ class UFRP_MT_menu(bpy.types.Menu):
             UFRP_OP_OnlyUnmuted.bl_idname,
             icon_value = icons.get_unmuted_id())
         layout.operator(
-            UFRP_OP_SwitchViewLayer.bl_idname,
-            icon_value = icons.get_switch_id())
-        layout.operator(
             UFRP_OP_OnlySelected.bl_idname,
             icon_value = icons.get_selected_id())
+        layout.operator(
+            UFRP_OP_SwitchViewLayer.bl_idname,
+            icon_value = icons.get_switch_id())
 
 
 def draw_batch_operators(self: Panel, context: Context):

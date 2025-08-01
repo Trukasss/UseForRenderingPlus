@@ -1,8 +1,8 @@
 schema_version = "1.0.0"
 
-id = "use_for_rendering_plus"
-version = "0.0.3"
-name = "Use For Rendering Plus"
+id = "view_layer_plus"
+version = "0.1.0"
+name = "View Layer Plus"
 tagline = "Quickly check or uncheck view layer's 'Use For Rendering' prop"
 maintainer = "Lukas Sabaliauskas <lukas_sabaliauskas@hotmail.com>"
 type = "add-on"

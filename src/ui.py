@@ -20,12 +20,12 @@ class UFRP_MT_menu(bpy.types.Menu):
         op_on = layout.operator(
             UFRP_OP_batch.bl_idname, 
             text="Enable all",
-            icon_value = icons.get_addon_id())
+            icon_value = icons.get_checked_id())
         op_on.state = True
         op_off = layout.operator(
             UFRP_OP_batch.bl_idname, 
             text="Disable all",
-            icon_value = icons.get_addon_id())
+            icon_value = icons.get_unchecked_id())
         op_off.state = False
         layout.operator(
             UFRP_OP_OnlyUnmuted.bl_idname,
@@ -43,12 +43,12 @@ def draw_batch_operators(self: Panel, context: Context):
     op_on = layout.operator(
         UFRP_OP_batch.bl_idname, 
         text="Enable all", 
-        icon_value = icons.get_addon_id())
+        icon_value = icons.get_checked_id())
     op_on.state = True
     op_off = layout.operator(
         UFRP_OP_batch.bl_idname, 
         text="Disable all", 
-        icon_value = icons.get_addon_id())
+        icon_value = icons.get_unchecked_id())
     op_off.state = False
 
 

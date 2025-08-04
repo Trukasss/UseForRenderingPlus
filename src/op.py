@@ -85,7 +85,7 @@ class UFRP_OP_OnlyUnmuted(Operator):
 
 
 class UFRP_OP_OnlySelected(Operator):
-    """Switch to active render layer node's view layer"""
+    """Only 'use for rendering' selected render layer nodes"""
     bl_idname = "ufrp.only_selected"
     bl_label = "Enable selected only"
     bl_options = {"REGISTER", "UNDO"}

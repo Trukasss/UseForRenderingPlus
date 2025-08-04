@@ -2,7 +2,7 @@ bl_info = {
     "name": "View Layer Plus",
     "description": "Quickly check or uncheck view layer's 'Use For Rendering' prop",
     "author": "Lukas Sabaliauskas <lukas_sabaliauskas@hotmail.com>",
-    "version": (0, 1, 0),
+    "version": (0, 1, 1),
     "blender": (4, 0, 0),
     # "location": "Object Properties > Relations > Matrix Parent Inverse",
     # "warning": "",

@@ -2,13 +2,10 @@ bl_info = {
     "name": "View Layer Plus",
     "description": "Quickly check or uncheck view layer's 'Use For Rendering' prop",
     "author": "Lukas Sabaliauskas <lukas_sabaliauskas@hotmail.com>",
-    "version": (0, 1, 1),
+    "version": (0, 1, 2),
     "blender": (4, 0, 0),
-    # "location": "Object Properties > Relations > Matrix Parent Inverse",
-    # "warning": "",
-    # "doc_url": "https://extensions.blender.org/add-ons/link-parents/",
-    # "tracker_url": "https://github.com/Trukasss/LinkParents",
-    # "category": "3D View",
+    "doc_url": "https://extensions.blender.org/add-ons/use-for-rendering-plus/",
+    "tracker_url": "https://github.com/Trukasss/ViewLayerPlus",
 }
 
 import bpy

@@ -2,7 +2,7 @@ bl_info = {
     "name": "View Layer Plus",
     "description": "Quickly check or uncheck view layer's 'Use For Rendering' prop",
     "author": "Lukas Sabaliauskas <lukas_sabaliauskas@hotmail.com>",
-    "version": (0, 1, 2),
+    "version": (0, 1, 3),
     "blender": (4, 0, 0),
     "doc_url": "https://extensions.blender.org/add-ons/use-for-rendering-plus/",
     "tracker_url": "https://github.com/Trukasss/ViewLayerPlus",

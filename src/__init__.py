@@ -8,14 +8,19 @@ bl_info = {
     "tracker_url": "https://github.com/Trukasss/ViewLayerPlus",
 }
 
+
+is_reloading = "bpy" in locals()
+
 import bpy
-import importlib
 from . import icons
-importlib.reload(icons)
 from . import op
-importlib.reload(op)
 from . import ui
-importlib.reload(ui)
+
+if is_reloading:
+    import importlib
+    importlib.reload(icons)
+    importlib.reload(op)
+    importlib.reload(ui)
 
 
 def register():
